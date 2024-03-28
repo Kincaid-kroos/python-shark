@@ -23,9 +23,10 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-     path('summernote/', include('django_summernote.urls')),
+     path('admin/', admin.site.urls),
      path('articles/',include('articles.urls')),
+     path('summernote/', include('django_summernote.urls')),
+     path('authentication/', include("authentication.urls")),
 ] #+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 #for routing on react side
 #urlpatterns += [re_path(r'^.*',TemplateView.as_view(template_name = 'index.html'))]
