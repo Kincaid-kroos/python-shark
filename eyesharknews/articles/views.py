@@ -1,3 +1,4 @@
+# views.py
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework.views import APIView
@@ -26,7 +27,7 @@ class BlogPostsFeaturedInLatest(ListAPIView):
 class BlogPostsDetails(RetrieveAPIView):
     queryset = BlogPosts.objects.all()
     serializer_class = BlogPostsSerializer
-    lookup_field = 'slug'  # Use 'slug' as the lookup field
+    lookup_field = 'slug'
     permission_classes = (permissions.AllowAny, )
 
 class BlogPostsCategory(APIView):
@@ -38,6 +39,7 @@ class BlogPostsCategory(APIView):
         queryset = BlogPosts.objects.order_by('-date_created').filter(category__iexact=id)
         serializer = BlogPostsSerializer(queryset, many=True)
         return Response(serializer.data)
+
 
 class BlogPostsHero(ListAPIView):
     queryset = BlogPosts.objects.filter(hero=True).order_by('-date_created')
@@ -63,4 +65,4 @@ class CategoryPostsForHomepage(ListAPIView):
 
     def get_queryset(self):
         category = self.kwargs['category']
-        return BlogPosts.objects.filter(category__iexact=category)[:6]  # Get 6 posts for the specified category
+        return BlogPosts.objects.filter(category__iexact=category)[:6]

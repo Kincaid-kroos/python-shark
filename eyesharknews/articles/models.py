@@ -12,8 +12,8 @@ class Categories(models.TextChoices):
     MORE= 'more'
     
 class BlogPosts(models.Model): 
-    title = models.CharField(max_length=50) 
-    slug = models.SlugField()
+    title = models.CharField(max_length=500) 
+    slug = models.SlugField(max_length=100)
     category = models.CharField(max_length=50, choices=Categories.choices, default=Categories.BUSINESS)
     image = models.ImageField(upload_to='photos/%Y/%m/%d/')
     description = models.CharField(max_length=150)
@@ -35,10 +35,16 @@ class BlogPosts(models.Model):
             queryset = BlogPosts.objects.all().filter(slug__iexact=slug).count()
         self.slug = slug
 
-        # If the post is marked as hero and not already featured, select any hero post to feature
-        if self.hero and not self.featured:
+        # If the post is marked as hero
+        if self.hero:
+            # Check if there are already 5 hero posts
+            hero_count = BlogPosts.objects.filter(hero=True).count()
+            if hero_count >= 5:
+                # Prevent saving the new post
+                return
+
+            # Check if there's already a hero post featured
             try:
-                # Check if there's any hero post currently featured
                 featured_hero = BlogPosts.objects.get(hero=True, featured=True)
             except BlogPosts.DoesNotExist:
                 featured_hero = None
@@ -52,10 +58,16 @@ class BlogPosts(models.Model):
                     featured_hero.featured = False
                     featured_hero.save()
 
-        # If the post is marked as latest and not already featured, select any latest post to feature
-        if self.latest and not self.featured:
+        # If the post is marked as latest
+        if self.latest:
+            # Check if there are already 5 latest posts
+            latest_count = BlogPosts.objects.filter(latest=True).count()
+            if latest_count >= 5:
+                # Prevent saving the new post
+                return
+
+            # Check if there's already a latest post featured
             try:
-                # Check if there's any latest post currently featured
                 featured_latest = BlogPosts.objects.get(latest=True, featured=True)
             except BlogPosts.DoesNotExist:
                 featured_latest = None

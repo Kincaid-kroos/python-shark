@@ -28,9 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-'http://127.0.0.1:5173',
 ]
 
 
@@ -68,9 +70,7 @@ ROOT_URLCONF = 'eyesharknews.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR,'Frontend/build')
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,12 +137,14 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 #STATICFILES_DIRS = [
- #   os.path.join(BASE_DIR,'Frontend/build/static')
+   # os.path.join(BASE_DIR,'/static')
 #]
 
 #Remember to collect static later..... python manage.py collectstatic
-#STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
+
+
+#media handling
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
