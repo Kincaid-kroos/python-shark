@@ -4,7 +4,7 @@ from articles.models import BlogPosts
 
 class BlogPostsAdmin(SummernoteModelAdmin):
     exclude = ('slug',)
-    list_display = ('id','title','category','date_created')
+    list_display = ('id','title','category','date_created','hero','latest','featured','popular')
     list_display_links = ('id','title')
     search_fields = ('title',)
     list_per_page=20

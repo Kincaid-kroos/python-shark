@@ -27,6 +27,6 @@ urlpatterns = [
      path('articles/',include('articles.urls')),
      path('summernote/', include('django_summernote.urls')),
      path('authentication/', include("authentication.urls")),
-] #+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 #for routing on react side
 #urlpatterns += [re_path(r'^.*',TemplateView.as_view(template_name = 'index.html'))]
