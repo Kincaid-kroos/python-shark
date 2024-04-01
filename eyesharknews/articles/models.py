@@ -62,7 +62,7 @@ class BlogPosts(models.Model):
         if self.latest:
             # Check if there are already 5 latest posts
             latest_count = BlogPosts.objects.filter(latest=True).count()
-            if latest_count >= 5:
+            if latest_count >= 7:
                 # Prevent saving the new post
                 return
 
